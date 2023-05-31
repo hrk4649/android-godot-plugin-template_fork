@@ -2,4 +2,4 @@
 
 name="AndroidGodotPluginTemplate"
 binary_type="local"
-binary="AndroidGodotPluginTemplate.aar"
+binary="AndroidGodotPluginTemplate-debug.aar"
