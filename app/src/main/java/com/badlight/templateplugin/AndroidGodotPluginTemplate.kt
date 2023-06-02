@@ -19,6 +19,7 @@ class AndroidGodotPluginTemplate(godot: Godot) : GodotPlugin(godot) {
             "getHelloWorldNative",
             "signalTest",
             "signalTest2",
+            "signalTest3",
             "sendSms"
         )
     }
@@ -47,6 +48,19 @@ class AndroidGodotPluginTemplate(godot: Godot) : GodotPlugin(godot) {
         }.start()
     }
 
+    fun signalTest3() {
+        Thread {
+            runCatching {
+                Log.d("signalTest3", "called")
+                Thread.sleep(3000)
+                val intRandom = (Math.random() * 100).toInt()
+                emitSignal("wake_up3", intRandom)
+            }.onFailure {
+                Log.e("signalTest3", "error", it)
+            }
+        }.start()
+    }
+
     fun sendSms(number: String, message: String): String? {
         return try{
             val smsManager = SmsManager.getDefault() as SmsManager
@@ -62,6 +76,8 @@ class AndroidGodotPluginTemplate(godot: Godot) : GodotPlugin(godot) {
         signals.add(SignalInfo("wake_up"))
         val c = String::class.java
         signals.add(SignalInfo("wake_up2", c))
+        val ci = Integer::class.java
+        signals.add(SignalInfo("wake_up3", ci))
         return signals
     }
 }
